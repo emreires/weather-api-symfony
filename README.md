@@ -13,7 +13,7 @@ A modern weather forecast application built with Symfony that provides weather i
 
 ## Requirements
 
-- PHP 8.2 or higher
+- PHP 7.3 or higher
 - Composer
 - Symfony CLI
 - MySQL/PostgreSQL
