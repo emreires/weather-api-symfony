@@ -18,6 +18,7 @@
         "symfony/framework-bundle": "5.3.*",
         "symfony/http-client": "5.3.*",
         "symfony/messenger": "5.3.*",
+        "symfony/polyfill-php80": "^1.24",
         "symfony/runtime": "5.3.*",
         "symfony/security-bundle": "5.3.*",
         "symfony/twig-bundle": "5.3.*",
