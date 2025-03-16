@@ -26,11 +26,16 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-scripts
       
+    - name: Clear cache
+      run: |
+        php bin/console cache:clear
+        rm -rf var/cache/*
+      
     - name: Check code style
       run: vendor/bin/php-cs-fixer fix --dry-run --diff
       
     - name: Run PHPStan
-      run: vendor/bin/phpstan analyse
+      run: vendor/bin/phpstan analyse src tests
       
     - name: Run tests
       run: vendor/bin/phpunit 
