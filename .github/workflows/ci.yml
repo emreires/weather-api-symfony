@@ -26,9 +26,12 @@ jobs:
     - name: Install dependencies
       run: composer install --prefer-dist --no-progress --no-scripts
       
+    - name: Create var directory
+      run: mkdir -p var/cache/test
+      
     - name: Clear cache
       run: |
-        php bin/console cache:clear
+        php bin/console cache:clear --env=test
         rm -rf var/cache/*
       
     - name: Check code style
