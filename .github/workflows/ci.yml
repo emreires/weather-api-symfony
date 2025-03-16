@@ -31,7 +31,7 @@ jobs:
       
     - name: Clear cache
       run: |
-        php bin/console cache:clear --env=test
+        php bin/console cache:clear --env=test --no-warmup
         rm -rf var/cache/*
       
     - name: Check code style
