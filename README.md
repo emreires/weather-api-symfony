@@ -1,29 +1,30 @@
-# Weather Forecast API & Web App
+# Weather Forecast Application
 
-A modern weather forecast application built with Symfony that provides weather information through a REST API and a beautiful web interface.
+A Symfony-based weather forecast application that allows users to check weather conditions for any city and save their favorite cities. The application uses the OpenWeatherMap API to fetch real-time weather data.
 
 ## Features
 
-- User Authentication with JWT
-- Favorite Cities Management
-- Real-time Weather Data from OpenWeatherMap API
-- Rate Limiting & Caching
-- Weather Data Visualization with Chart.js
-- Automated Weather Data Updates via Symfony Messenger & RabbitMQ
+- Real-time weather data for any city
+- 5-day weather forecast with temperature trends
+- User authentication and registration
+- Favorite cities management
+- Automatic weather data updates for favorite cities
+- Rate limiting to prevent API abuse
+- Caching to optimize API calls
 
 ## Requirements
 
-- PHP 7.3 or higher
+- PHP 8.0 or higher
 - Composer
 - Symfony CLI
-- MySQL/PostgreSQL
-- RabbitMQ (for background jobs)
+- MySQL/PostgreSQL database
+- OpenWeatherMap API key
 
 ## Installation
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
+git clone https://github.com/yourusername/weather-api.git
 cd weather-api
 ```
 
@@ -32,56 +33,66 @@ cd weather-api
 composer install
 ```
 
-3. Configure your environment:
-```bash
-cp .env.example .env
-```
-
-4. Update the `.env` file with your database credentials and OpenWeatherMap API key:
+3. Create a `.env.local` file and configure your environment variables:
 ```env
+APP_ENV=dev
+APP_SECRET=your_secret_here
 DATABASE_URL="mysql://user:password@127.0.0.1:3306/weather_db"
-OPENWEATHERMAP_API_KEY="your-api-key"
+OPENWEATHERMAP_API_KEY=your_api_key_here
+JWT_SECRET_KEY=your_jwt_secret_key
+JWT_PUBLIC_KEY=your_jwt_public_key
+JWT_PASSPHRASE=your_jwt_passphrase
+CORS_ALLOW_ORIGIN='^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
 ```
 
-5. Create the database:
+4. Create the database:
 ```bash
 php bin/console doctrine:database:create
 ```
 
-6. Run migrations:
+5. Run migrations:
 ```bash
 php bin/console doctrine:migrations:migrate
 ```
 
-7. Generate JWT keys:
-```bash
-php bin/console lexik:jwt:generate-keypair
-```
-
-8. Start the development server:
+6. Start the Symfony development server:
 ```bash
 symfony server:start
 ```
 
-## API Documentation
+## Usage
 
-Once the application is running, you can access the API documentation at:
-```
-http://localhost:8000/api/doc
-```
+1. Register a new account or log in to an existing one
+2. Search for a city to view its current weather and forecast
+3. Add cities to your favorites for quick access
+4. View weather data for all your favorite cities in one place
 
-## Development
+## API Endpoints
 
-- Run tests:
+- `POST /api/register` - Register a new user
+- `POST /api/login` - Authenticate user and get JWT token
+- `GET /api/weather/current/{city}/{countryCode}` - Get current weather for a city
+- `GET /api/weather/forecast/{city}/{countryCode}` - Get 5-day forecast for a city
+- `GET /api/weather/favorites` - Get weather data for all favorite cities
+- `GET /api/favorite-cities` - List user's favorite cities
+- `POST /api/favorite-cities` - Add a new favorite city
+- `DELETE /api/favorite-cities/{id}` - Remove a favorite city
+
+## Scheduled Updates
+
+To schedule weather data updates for favorite cities, run:
 ```bash
-php bin/phpunit
+php bin/console app:schedule-weather-updates
 ```
 
-- Start RabbitMQ consumer:
-```bash
-php bin/console messenger:consume async
-```
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-This project is licensed under the MIT License. 
+This project is licensed under the MIT License - see the LICENSE file for details. 
