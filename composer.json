@@ -12,23 +12,23 @@
         "ext-json": "*",
         "lexik/jwt-authentication-bundle": "^2.16",
         "nelmio/cors-bundle": "^2.3",
-        "symfony/console": "5.4.*",
-        "symfony/dotenv": "5.4.*",
+        "symfony/console": "5.3.*",
+        "symfony/dotenv": "5.3.*",
         "symfony/flex": "^1",
-        "symfony/framework-bundle": "5.4.*",
-        "symfony/http-client": "5.4.*",
-        "symfony/messenger": "5.4.*",
-        "symfony/runtime": "5.4.*",
-        "symfony/security-bundle": "5.4.*",
-        "symfony/twig-bundle": "5.4.*",
-        "symfony/validator": "5.4.*",
-        "symfony/yaml": "5.4.*"
+        "symfony/framework-bundle": "5.3.*",
+        "symfony/http-client": "5.3.*",
+        "symfony/messenger": "5.3.*",
+        "symfony/runtime": "5.3.*",
+        "symfony/security-bundle": "5.3.*",
+        "symfony/twig-bundle": "5.3.*",
+        "symfony/validator": "5.3.*",
+        "symfony/yaml": "5.3.*"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.5",
-        "symfony/browser-kit": "5.4.*",
-        "symfony/css-selector": "5.4.*",
-        "symfony/phpunit-bridge": "^5.4",
+        "symfony/browser-kit": "5.3.*",
+        "symfony/css-selector": "5.3.*",
+        "symfony/phpunit-bridge": "^5.3",
         "phpstan/phpstan": "^0.12.99",
         "phpstan/phpstan-symfony": "^0.12.22",
         "phpstan/phpstan-doctrine": "^0.12.44",
@@ -80,7 +80,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.4.*"
+            "require": "5.3.*"
         }
     }
 }
