@@ -1,0 +1,88 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Weather Forecast - Home{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="text-center mb-0">Weather Forecast</h2>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{{ path('app_home') }}" class="mb-4">
+                        <div class="input-group">
+                            <input type="text" name="city" class="form-control" placeholder="Enter city name" required>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Search
+                            </button>
+                        </div>
+                    </form>
+
+                    {% if weather_data is defined %}
+                        <div class="weather-data">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3>{{ weather_data.city }}, {{ weather_data.country }}</h3>
+                                    <div class="current-weather">
+                                        <h1 class="display-4">{{ weather_data.temperature }}°C</h1>
+                                        <p class="lead">{{ weather_data.description }}</p>
+                                        <div class="weather-details">
+                                            <p><i class="fas fa-wind"></i> Wind: {{ weather_data.windSpeed }} m/s</p>
+                                            <p><i class="fas fa-tint"></i> Humidity: {{ weather_data.humidity }}%</p>
+                                            <p><i class="fas fa-compress-arrows-alt"></i> Pressure: {{ weather_data.pressure }} hPa</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <canvas id="weatherChart"></canvas>
+                                </div>
+                            </div>
+
+                            {% if app.user %}
+                                <div class="mt-4 text-center">
+                                    <form method="post" action="{{ path('app_add_favorite') }}">
+                                        <input type="hidden" name="city" value="{{ weather_data.city }}">
+                                        <button type="submit" class="btn btn-outline-primary">
+                                            <i class="fas fa-star"></i> Add to Favorites
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% if weather_data is defined %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const ctx = document.getElementById('weatherChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: {{ weather_data.forecast|map(f => f.date)|json_encode|raw }},
+                        datasets: [{
+                            label: 'Temperature (°C)',
+                            data: {{ weather_data.forecast|map(f => f.temperature)|json_encode|raw }},
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: false
+                            }
+                        }
+                    }
+                });
+            });
+        </script>
+    {% endif %}
+{% endblock %} 
