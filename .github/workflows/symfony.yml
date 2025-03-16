@@ -26,7 +26,7 @@ jobs:
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: '7.3.10'
+          php-version: '7.3'
           extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql
           coverage: xdebug
 
